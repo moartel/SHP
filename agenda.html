@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHP 上海科技演讲俱乐部 - 会议议程 | Toastmasters International</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><circle cx='30' cy='30' r='28' fill='none' stroke='%237C191B' stroke-width='2'/><text x='30' y='38' text-anchor='middle' font-size='32' font-weight='700' fill='%237C191B' font-family='serif'>T</text></svg>">
+<style>
+  :root {
+    --tm-red: #7C191B;
+    --tm-red-dark: #5E0F14;
+    --tm-red-light: #a83032;
+    --tm-gold: #C4A35A;
+    --tm-gold-light: #f5e6c8;
+    --text-dark: #333333;
+    --bg-gray: #F5F5F5;
+    --border-color: #d0d0d0;
+    --green: #4caf50;
+    --yellow: #ffc107;
+    --red: #f44336;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg-gray);
+    color: var(--text-dark);
+    padding: 20px;
+    line-height: 1.4;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-primary { background: var(--tm-red); color: white; }
+  .btn-primary:hover { background: var(--tm-red-dark); transform: translateY(-1px); }
+  .btn-success { background: var(--green); color: white; }
+  .btn-success:hover { background: #3d8b40; }
+  .btn-danger { background: var(--red); color: white; }
+  .btn-danger:hover { background: #da190b; }
+  .btn-warning { background: #ff9800; color: white; }
+  .btn-sm { padding: 6px 14px; font-size: 13px; }
+
+  .agenda-container {
+    max-width: 1150px;
+    margin: 0 auto;
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+
+  /* Header Banner */
+  .header-banner {
+    display: flex;
+    background: #7C191B;
+    color: white;
+    min-height: 72px;
+    border-bottom: 3px solid var(--tm-gold);
+  }
+
+  .banner-left {
+    width: 280px;
+    min-height: 72px;
+    background: #5E0F14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .banner-left::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px;
+    width: 100px; height: 100px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .banner-left-text {
+    text-align: center;
+    z-index: 1;
+  }
+
+  .banner-left-text .en {
+    font-size: 13px;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+  }
+
+  .banner-left-text .slogan {
+    font-size: 8px;
+    opacity: 0.8;
+    letter-spacing: 1.2px;
+    margin: 3px 0;
+    color: var(--tm-gold);
+    font-weight: 600;
+  }
+
+  .banner-left-text .cn {
+    font-size: 10px;
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+
+  .banner-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+
+  .club-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .meeting-info {
+    font-size: 14px;
+    margin-top: 4px;
+    opacity: 0.95;
+  }
+
+  .meeting-info input {
+    background: rgba(255,255,255,0.2);
+    border: 1px dashed rgba(255,255,255,0.5);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 120px;
+    text-align: center;
+  }
+
+  .meeting-info input::placeholder { color: rgba(255,255,255,0.6); }
+  .meeting-info input:focus {
+    outline: none;
+    background: rgba(255,255,255,0.35);
+    border-style: solid;
+  }
+  #meetingNum { width: 42px; }
+  #meetingTheme { width: 150px; }
+  #meetingDate { width: 130px; }
+
+  .banner-right {
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .tm-logo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+
+  /* Main Layout */
+  .main-body {
+    display: flex;
+  }
+
+  /* Left Sidebar */
+  .sidebar {
+    width: 260px;
+    border-right: 2px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .sidebar-section {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 14px;
+    background: #fafafa;
+  }
+
+  .sidebar-section:last-child {
+    border-bottom: none;
+  }
+
+  .sidebar-label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #222;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-value {
+    font-size: 12.5px;
+    color: #444;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .sidebar-value textarea,
+  .sidebar-value input {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-family: inherit;
+    resize: vertical;
+    background: white;
+    transition: border-color 0.2s;
+  }
+
+  .sidebar-value textarea:focus,
+  .sidebar-value input:focus {
+    outline: none;
+    border-color: var(--tm-red);
+    box-shadow: 0 0 0 2px rgba(124,25,27,0.15);
+  }
+
+  .sidebar-section.highlight {
+    background: var(--tm-gold-light);
+  }
+
+  .poster-area {
+    background: #7C191B;
+    color: white;
+    border-radius: 4px;
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 11.5px;
+    line-height: 1.6;
+    min-height: 180px;
+  }
+
+  .poster-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--tm-gold);
+    margin-bottom: 8px;
+  }
+
+  .poster-speaker {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    margin: 8px 0;
+  }
+
+  .poster-role {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 6px;
+  }
+
+  .poster-bio {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+    margin-top: 6px;
+  }
+
+  .address-section {
+    font-size: 11.5px;
+    line-height: 1.6;
+  }
+
+  .address-section strong {
+    color: var(--tm-red);
+  }
+
+  /* Right Content - Table */
+  .table-area {
+    flex: 1;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  thead th {
+    background: #e8d8dc;
+    border: 1px solid #c0a8ad;
+    padding: 8px 6px;
+    text-align: center;
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    color: var(--tm-red-dark);
+  }
+
+  thead th .duration-header {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .color-dot {
+    display: inline-block;
+    width: 28px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+  }
+
+  .dot-green { background: var(--green); }
+  .dot-yellow { background: var(--yellow); color: #333; }
+  .dot-red { background: var(--red); }
+
+  tbody td {
+    border: 1px solid #ccc;
+    padding: 4px 5px;
+    vertical-align: middle;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: #f9f9f9;
+  }
+
+  tbody tr:hover td {
+    background: #fdf2f4;
+  }
+
+  tbody td input,
+  tbody td select,
+  tbody td textarea {
+    width: 100%;
+    border: 1px solid transparent;
+    padding: 4px 5px;
+    font-size: 12px;
+    font-family: inherit;
+    background: transparent;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  /* Role select specific */
+  .role-select {
+    cursor: pointer;
+    font-size: 11.5px;
+    padding: 2px 4px;
+  }
+  .role-select:focus {
+    border-color: var(--tm-red);
+    background: white;
+    box-shadow: 0 0 0 2px rgba(124,25,27,0.12);
+  }
+
+  tbody td input:hover,
+  tbody td select:hover,
+ tbody td textarea:hover {
+    border-color: #ddd;
+    background: white;
+  }
+
+  tbody td input:focus,
+  tbody td select:focus,
+  tbody td textarea:focus {
+    outline: none;
+    border-color: var(--tm-red);
+    background: white;
+    box-shadow: 0 0 0 2px rgba(124,25,27,0.12);
+  }
+
+  td.col-time { width: 48px; text-align: center; }
+  td.col-time .calculated-time {
+    font-weight: 700;
+    color: var(--tm-red);
+    font-size: 12px;
+    display: inline-block;
+    min-width: 38px;
+  }
+  td.col-time .calculated-time.break-time {
+    color: #e65100;
+  }
+  td.col-content { width: auto; }
+  td.col-duration { width: 100px; }
+  td.col-role { width: 130px; }
+  td.col-name { width: 120px; }
+
+  .duration-cells {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .duration-cells input {
+    width: 32px;
+    text-align: center;
+    padding: 3px 2px;
+    font-size: 11.5px;
+  }
+
+  .section-header-row td {
+    background: #f0dde0 !important;
+    font-weight: 700;
+    text-align: center;
+    font-size: 12px;
+    padding: 5px;
+    letter-spacing: 0.5px;
+    color: var(--tm-red-dark);
+  }
+
+  .action-cell {
+    text-align: center;
+    width: 40px;
+  }
+
+  .delete-row-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  .delete-row-btn:hover {
+    background: #ffebee;
+    color: var(--red);
+  }
+
+  .add-section-bar {
+    background: #f0f0f0;
+    padding: 12px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+  }
+
+  .add-section-bar .btn {
+    margin: 0 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .add-section-bar .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+  }
+
+  .footer-note {
+    border-top: 2px solid var(--border-color);
+    display: flex;
+    background: #fafafa;
+  }
+
+  .footer-note > div {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: #555;
+    border-right: 1px solid #ddd;
+  }
+
+  .footer-note > div:last-child {
+    border-right: none;
+  }
+
+  .footer-note label {
+    font-weight: 700;
+    color: #333;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .footer-note textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 11px;
+    font-family: inherit;
+    resize: vertical;
+    background: white;
+    min-height: 60px;
+  }
+
+  /* Print Styles */
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+    }
+
+    .toolbar {
+      display: none !important;
+    }
+
+    .agenda-container {
+      box-shadow: none;
+      border: 2px solid var(--tm-red);
+      max-width: none;
+    }
+
+    tbody td input,
+    tbody td select,
+    tbody td textarea,
+    .sidebar-value textarea,
+    .sidebar-value input,
+    .footer-note textarea,
+    .meeting-info input {
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 4px 5px !important;
+    }
+
+    .action-cell {
+      display: none !important;
+    }
+
+    .add-section-bar {
+      display: none !important;
+    }
+
+    .delete-row-btn {
+      display: none !important;
+    }
+
+    .section-header-row td {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    thead th {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .poster-area,
+    .section-header-row td {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 8mm;
+    }
+  }
+
+  /* ================================================================
+   * 响应式布局 — 移动端 / 平板 / 桌面
+   * ================================================================ */
+
+  /* 平板 & 中等屏幕 (≤900px) */
+  @media (max-width: 900px) {
+    .main-body {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .sidebar-section {
+      flex: 1 1 45%;
+      min-width: 180px;
+    }
+    .banner-left {
+      width: 200px;
+    }
+    .header-banner {
+      flex-wrap: wrap;
+    }
+    .banner-right {
+      display: none;
+    }
+  }
+
+  /* 手机端 (≤480px) — 小程序 web-view 主力适配 */
+  @media (max-width: 480px) {
+    body {
+      padding: 4px;
+    }
+
+    /* --- 工具栏 --- */
+    .toolbar {
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .btn {
+      padding: 6px 10px;
+      font-size: 11px;
+      border-radius: 4px;
+    }
+    .btn-sm {
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+    .help-text {
+      display: none;
+    }
+
+    /* --- Header Banner: 堆叠式 --- */
+    .header-banner {
+      flex-direction: column;
+      min-height: auto;
+      border-bottom: 2px solid var(--tm-gold);
+    }
+    .banner-left {
+      width: 100%;
+      min-height: auto;
+      padding: 8px 10px;
+    }
+    .banner-left-text .en {
+      font-size: 11px;
+    }
+    .banner-left-text .slogan {
+      font-size: 7px;
+      margin: 1px 0;
+    }
+    .banner-left-text .cn {
+      font-size: 9px;
+      margin-top: 2px;
+    }
+
+    .banner-center {
+      padding: 8px 10px;
+    }
+    .club-name {
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+    .meeting-info {
+      font-size: 11px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2px 6px;
+      margin-top: 4px;
+      line-height: 1.8;
+    }
+    .meeting-info span {
+      white-space: nowrap;
+    }
+    .meeting-info input {
+      font-size: 11px;
+      padding: 2px 4px;
+      width: auto;
+      min-width: 28px;
+      max-width: 105px;
+      height: 22px;
+    }
+    .meeting-info input#meetingTheme {
+      width: auto;
+      max-width: 130px;
+    }
+    .meeting-info input#meetingDate {
+      width: auto;
+      max-width: 100px;
+    }
+    .meeting-info input#meetingNum {
+      width: auto;
+      max-width: 36px;
+    }
+
+    .banner-right {
+      display: none;
+    }
+
+    /* --- Main Body --- */
+    .main-body {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .sidebar-section {
+      flex: 1 1 100%;
+      padding: 6px 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .sidebar-label {
+      font-size: 11px;
+      margin-bottom: 2px;
+    }
+    .sidebar-value {
+      font-size: 11px;
+    }
+    .sidebar-value input,
+    .sidebar-value textarea {
+      font-size: 11px;
+      padding: 3px 5px;
+    }
+
+    /* Poster: 占满宽 */
+    .poster-area {
+      min-height: auto;
+      padding: 10px 8px;
+      font-size: 10px;
+    }
+    .poster-title {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .poster-speaker {
+      font-size: 15px;
+    }
+
+    /* --- 表格区域 --- */
+    .table-area {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      min-width: 600px;
+      font-size: 11px;
+    }
+    thead th {
+      padding: 5px 3px;
+      font-size: 10px;
+    }
+    thead th .duration-header {
+      flex-wrap: wrap;
+      gap: 1px;
+    }
+    .color-dot {
+      width: 22px;
+      font-size: 8px;
+      padding: 1px 2px;
+    }
+    td.col-time { width: 40px; }
+    td.col-time .calculated-time {
+      font-size: 10px;
+      min-width: 32px;
+    }
+    td.col-duration { width: 80px; }
+    td.col-role { width: 100px; }
+    td.col-name { width: 90px; }
+    .duration-cells input {
+      width: 26px;
+      font-size: 10px;
+      padding: 2px 1px;
+    }
+    tbody td {
+      padding: 3px;
+    }
+    tbody td input,
+    tbody td select,
+    tbody td textarea {
+      font-size: 10px;
+      padding: 2px 3px;
+    }
+    .role-select {
+      font-size: 10px;
+      padding: 1px 2px;
+    }
+    .section-header-row td {
+      font-size: 10px;
+      padding: 3px;
+    }
+    .action-cell {
+      width: 28px;
+    }
+    .delete-row-btn {
+      font-size: 13px;
+      padding: 1px 4px;
+    }
+
+    /* 底部按钮栏 */
+    .add-section-bar {
+      padding: 8px;
+      position: sticky;
+      bottom: 0;
+    }
+    .add-section-bar .btn {
+      margin: 0 4px;
+    }
+
+    /* --- Footer Notes --- */
+    .footer-note {
+      flex-direction: column;
+    }
+    .footer-note > div {
+      flex: none;
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+      padding: 8px 10px;
+      font-size: 10px;
+    }
+    .footer-note > div:last-child {
+      border-bottom: none;
+    }
+    .footer-note label {
+      font-size: 10px;
+      margin-bottom: 2px;
+    }
+    .footer-note textarea {
+      font-size: 10px;
+      min-height: 40px;
+      padding: 3px;
+    }
+
+    /* Toast 消息 */
+    .toast {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      max-width: none;
+      font-size: 12px;
+      padding: 10px 16px;
+      text-align: center;
+    }
+  }
+
+  .toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #323232;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 9999;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  .help-text {
+    font-size: 12px;
+    color: #888;
+    margin-left: auto;
+  }
+
+  /* Collaboration status indicator */
+  .sync-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-left: auto;
+  }
+  .sync-status.online { color: #2e7d32; background: #e8f5e9; }
+  .sync-status.offline { color: #c62828; background: #ffebee; }
+  .sync-status.syncing { color: #e65100; background: #fff3e0; }
+  .sync-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .sync-dot.online { background: #4caf50; animation: pulse-dot 2s infinite; }
+  .sync-dot.offline { background: #f44336; }
+  .sync-dot.syncing { background: #ff9800; animation: pulse-dot 0.6s infinite; }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn btn-primary" onclick="window.print()">🖨️ 打印议程</button>
+  <button class="btn btn-success" onclick="calculateAndRender()">⏱️ 计算时间线</button>
+  <button class="btn btn-warning" onclick="saveAgenda()">💾 导出JSON</button>
+  <button class="btn btn-primary btn-sm" onclick="exportForSmartSheet()">📤 导出(智能表格格式)</button>
+  <button class="btn btn-success btn-sm" onclick="loadAgenda()">📥 导入JSON</button>
+  <button class="btn btn-primary btn-sm" onclick="resetToTemplate()">🔄 重置为模板</button>
+  <span class="sync-status offline" id="syncStatus">
+    <span class="sync-dot offline"></span> <span id="syncLabel">离线模式</span>
+  </span>
+  <button class="btn btn-success" onclick="manualSave()" title="手动保存到云端">💾 保存</button>
+  <span class="help-text">提示：时间根据Green时长自动计算 | 角色请从下拉列表中选择 | 数据自动保存</span>
+</div>
+
+<div class="agenda-container" id="agendaContainer">
+  <!-- Header -->
+  <div class="header-banner">
+    <div class="banner-left">
+      <div class="banner-left-text">
+        <div class="en">TOASTMASTERS</div>
+        <div class="slogan">WHERE LEADERS ARE MADE</div>
+        <div class="cn">SHP 上海科技演讲俱乐部</div>
+      </div>
+    </div>
+    <div class="banner-center">
+      <div class="club-name">SHP 上海科技演讲俱乐部</div>
+      <div class="meeting-info">
+        <span id="meetingNumLabel">第 </span><input type="text" id="meetingNum" value="4" placeholder="届数"> 
+        <span id="meetingNumLabel2">th Meeting Theme：</span>
+        <input type="text" id="meetingTheme" value="以共情唤共鸣——演讲中的情感密码" placeholder="会议主题">
+        <span> Date: </span>
+        <input type="text" id="meetingDate" value="May 16th, 2026" placeholder="日期">
+      </div>
+    </div>
+    <div class="banner-right">
+      <div class="tm-logo" style="background:none;border:none;padding:4px;">
+        <img src="tm-logo.png" alt="Toastmasters International" style="width:65px;height:auto;object-fit:contain;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Body -->
+  <div class="main-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">SHP Slogan:</div>
+        <div class="sidebar-value"><input type="text" value="以共情唤共鸣，以真诚换真心" /></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Club's Mission:</div>
+        <div class="sidebar-value">
+          <textarea rows="4">赋能每一位会员在演讲与领导力上的成长，打造温暖、包容、互助的演讲社群。</textarea>
+        </div>
+      </div>
+
+      <div class="sidebar-section highlight">
+        <div class="sidebar-label">Word of Day :</div>
+        <div class="sidebar-value"><input type="text" value="共情" /></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Poster:</div>
+        <div class="sidebar-value"><input type="text" value="麦子" /></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Photographer:</div>
+        <div class="sidebar-value"><input type="text" value="余科" /></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Meeting Taboos:</div>
+        <div class="sidebar-value"><input type="text" value="Politics、Religion、Sex、Low-Taste" /></div>
+      </div>
+
+      <div class="sidebar-section" style="padding: 0;">
+        <div class="poster-area" id="posterArea">
+          <div style="font-size:11px;opacity:0.7;margin-bottom:4px;">SHP 上海科技演讲俱乐部</div>
+          <div class="poster-title">以共情唤共鸣<br>——演讲中的情感密码</div>
+          <div style="font-size:11px;margin:6px 0;color:var(--tm-gold);">分享情感密码，解锁演讲魅力</div>
+          <div style="margin-top:10px;">
+            <textarea style="background:rgba(255,255,255,0.1);border:1px dashed rgba(255,255,255,0.3);color:#fff;font-size:10.5px;width:100%;min-height:80px;resize:none;" placeholder="本次分享嘉宾信息...">本次分享嘉宾
+麦子
+华东师范大学心理学硕士
+前互联网产品经理
+上海学校中级心理咨询师
+《心路历程》播客主播
+
+• 演讲中的情感密码解析
+• 如何用共情力打动听众
+• 从心理学视角提升演讲感染力</textarea>
+          </div>
+          <div style="margin-top:8px;font-size:9.5px;color:#888;line-height:1.5;text-align:left;padding:0 4px;">
+            • 时间：2026年5月16日（周五）| 18:30-20:30<br>
+            • 地址：浦东张江科荣大厦A栋3楼<br>
+            （靠近中科路地铁站）<br>
+            • 费用：来宾29/人<br>
+            • 联系：参会请扫码
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section address-section">
+        <strong>会议地址：浦东张江科荣大厦A栋3楼</strong><br>
+        （靠近中科路地铁站）
+      </div>
+    </div>
+
+    <!-- Table Area -->
+    <div class="table-area">
+      <table id="agendaTable">
+        <thead>
+          <tr>
+            <th class="col-time">Time</th>
+            <th class="col-content">Content</th>
+            <th class="col-duration">Duration(min)<br>
+              <span class="duration-header">
+                <span class="color-dot dot-green">Green</span>
+                <span class="color-dot dot-yellow">Yellow</span>
+                <span class="color-dot dot-red">Red</span>
+              </span>
+            </th>
+            <th class="col-role">Role</th>
+            <th class="col-name">Name</th>
+            <th class="action-cell"></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Sections will be rendered by JS -->
+        </tbody>
+      </table>
+
+      <div class="add-section-bar">
+        <button class="btn btn-primary btn-sm" onclick="addNewRow()">➕ 添加议程项</button>
+        <button class="btn btn-success btn-sm" onclick="addSectionHeader()">📑 添加分组标题</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Notes -->
+  <div class="footer-note">
+    <div>
+      <label>Purpose of prepared speech1</label>
+      <textarea>DLS：本项目的目的是让会员运用领导力和归还能力来制定项目计划。组织指导委员会，并在团队的帮助下实施计划。介绍计划和愿景。</textarea>
+    </div>
+    <div>
+      <label>Purpose of prepared speech 2 : Ice Breaker (L1-1)</label>
+      <textarea>旨在向听众介绍自己，分享背景、经历、兴趣或愿景。时长4-6分钟。</textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================================
+// Toastmasters 角色列表（用于下拉选择）
+// 分组遵循 TMC 标准角色体系
+// ============================================================================
+var TM_ROLES = [
+  { optgroup: '核心官员', roles: [
+    { value: "President", label: "President (主席)" },
+    { value: "VPE", label: "VPE (教育副会长)" },
+    { value: "VPM", label: "VPM (会员副会长)" },
+    { value: "VPPR", label: "VPPR (公关副会长)" },
+    { value: "Secretary", label: "Secretary (秘书)" },
+    { value: "Treasurer", label: "Treasurer (财务)" },
+    { value: "SAA", label: "SAA (事务官)" }
+  ]},
+  { optgroup: '会议角色', roles: [
+    { value: "TOD", label: "TOD (会议主持人)" },
+    { value: "GE", label: "GE (总评官)" },
+    { value: "Timer", label: "Timer (时间官)" },
+    { value: "Grammarian", label: "Grammarian (语法官)" },
+    { value: "Ah-Counter", label: "Ah-Counter (哼哈官)" },
+    { value: "Voting Officer", label: "Voting Officer (投票官)" },
+    { value: "Spotlighter", label: "Spotlighter (聚光灯官)" }
+  ]},
+  { optgroup: '演讲角色', roles: [
+    { value: "Speaker 1", label: "Speaker 1" },
+    { value: "Speaker 2", label: "Speaker 2" },
+    { value: "Speaker 3", label: "Speaker 3" },
+    { value: "TTM", label: "TTM (即兴主持人)" }
+  ]},
+  { optgroup: '评估角色', roles: [
+    { value: "IE 1", label: "IE 1 (个评1)" },
+    { value: "IE 2", label: "IE 2 (个评2)" },
+    { value: "IE 3", label: "IE 3 (个评3)" },
+    { value: "TTE", label: "TTE (即兴评估)" }
+  ]},
+  { optgroup: '特殊', roles: [
+    { value: "Guests", label: "Guests (来宾)" },
+    { value: "Speaker Sharing", label: "Speaker Sharing (嘉宾分享)" },
+    { value: "HOST", label: "HOST (主持人)" },
+    { value: "All", label: "All (所有人)" }
+  ]}
+];
+
+// ============================================================================
+// 模板数据（与腾讯文档智能表格数据结构一致）
+// time 字段留空 → 由 calculateTimeline 自动填充
+// ============================================================================
+var templateSections = [
+  {
+    title: "迎宾与接待",
+    rows: [
+      { time: "", content: "布置场地+签到", g: "10", y: "12", r: "15", role: "All", name: "" },
+      { time: "", content: "会议暖场", g: "10", y: "12", r: "15", role: "All", name: "" },
+    ]
+  },
+  {
+    title: "开场致辞+官员团队介绍",
+    rows: [
+      { time: "", content: "主席致辞", g: "2", y: "3", r: "4", role: "President", name: "" },
+      { time: "", content: "主持人程序介绍", g: "1", y: "1.5", r: "2", role: "TOD", name: "" },
+      { time: "", content: "总评团队介绍", g: "1", y: "1.5", r: "2", role: "GE", name: "" },
+      { time: "", content: "时间官介绍", g: "1", y: "1.5", r: "2", role: "Timer", name: "" },
+      { time: "", content: "语法官介绍", g: "1", y: "1.5", r: "2", role: "Grammarian", name: "" },
+    ]
+  },
+  {
+    title: "备稿演讲",
+    rows: [
+      { time: "", content: "备稿演讲 1", g: "5", y: "6", r: "7", role: "Speaker 1", name: "" },
+      { time: "", content: "备稿演讲 2", g: "4", y: "5", r: "6", role: "Speaker 2", name: "" },
+    ]
+  },
+  {
+    title: "即兴演讲",
+    rows: [
+      { time: "", content: "即兴演讲", g: "16", y: "18", r: "20", role: "TTM", name: "" },
+    ]
+  },
+  {
+    title: "来宾交流、合影",
+    rows: [
+      { time: "", content: "来宾介绍+合影+入会介绍", g: "13", y: "14", r: "15", role: "Guests", name: "" },
+      { time: "", content: "中场休息 ☕", g: "10", y: "12", r: "15", role: "All", name: "", isBreak: true },
+    ]
+  },
+  {
+    title: "嘉宾分享",
+    rows: [
+      { time: "", content: "嘉宾分享", g: "30", y: "34", r: "35", role: "Speaker Sharing", name: "" },
+    ]
+  },
+  {
+    title: "评估团队交付报告",
+    rows: [
+      { time: "", content: "个评报告 1", g: "2", y: "2.5", r: "3", role: "IE 1", name: "" },
+      { time: "", content: "个评报告 2", g: "2", y: "2.5", r: "3", role: "IE 2", name: "" },
+      { time: "", content: "即兴演讲评估", g: "6", y: "7", r: "8", role: "TTE", name: "" },
+      { time: "", content: "哼哈官报告", g: "1", y: "1.5", r: "2", role: "Ah-Counter", name: "" },
+      { time: "", content: "时间官报告", g: "1", y: "1.5", r: "2", role: "Timer", name: "" },
+      { time: "", content: "总评报告", g: "6", y: "7", r: "8", role: "GE", name: "" },
+    ]
+  },
+  {
+    title: "投票+来宾反馈+颁奖",
+    rows: [
+      { time: "", content: "投票+来宾反馈+颁奖", g: "3", y: "4", r: "5", role: "Voting Officer", name: "" },
+      { time: "", content: "颁奖", g: "2", y: "3", r: "4", role: "President", name: "" },
+    ]
+  },
+  {
+    title: "会议总结",
+    rows: []
+  }
+];
+
+var currentData = JSON.parse(JSON.stringify(templateSections));
+window.currentData = currentData;
+window.templateSections = templateSections;
+
+// 会议开始时间
+var meetingStartTime = '18:30';
+
+// ============================================================================
+// CloudBase 协作同步模块 (动态加载 SDK，超时降级)
+// ============================================================================
+var CLOUDBASE_ENV = 'qianqianxun-d6gbfqrhp630f6455';
+var DOC_ID = 'shptmc-latest';
+var SDK_URL = 'https://static.cloudbase.net/cloudbase-js-sdk/latest/cloudbase.full.js';
+var cloudApp = null, cloudDb = null, cloudCollection = null;
+var cloudWatcher = null, isCloudReady = false;
+var saveDebounceTimer = null, lastKnownVersion = 0, localDirty = false;
+
+// 动态加载 CloudBase SDK（不阻塞页面渲染，5秒超时）
+function loadCloudBaseSDK() {
+  return new Promise(function(resolve) {
+    if (typeof cloudbase !== 'undefined' && cloudbase.init) {
+      return resolve(true);
+    }
+    var script = document.createElement('script');
+    script.src = SDK_URL;
+    script.async = true;
+    var timeout = setTimeout(function() {
+      script.onload = null;
+      script.onerror = null;
+      if (script.parentNode) script.parentNode.removeChild(script);
+      console.warn('CloudBase SDK load timeout (5s), using offline mode');
+      resolve(false);
+    }, 5000);
+    script.onload = function() {
+      clearTimeout(timeout);
+      resolve(true);
+    };
+    script.onerror = function() {
+      clearTimeout(timeout);
+      console.warn('CloudBase SDK load failed, using offline mode');
+      resolve(false);
+    };
+    document.head.appendChild(script);
+  });
+}
+
+function initCloudBase() {
+  updateSyncStatus('syncing', '连接中...');
+  return loadCloudBaseSDK().then(function(sdkOk) {
+    if (!sdkOk) {
+      updateSyncStatus('offline', '离线模式(SDK)');
+      return false;
+    }
+    cloudApp = cloudbase.init({ env: CLOUDBASE_ENV, region: 'ap-shanghai' });
+    return cloudApp.auth({ persistence: 'local' }).anonymousAuthProvider().signIn().then(function() {
+      cloudDb = cloudApp.database();
+      cloudCollection = cloudDb.collection('agendas');
+      isCloudReady = true;
+      updateSyncStatus('online', '在线协作');
+      return true;
+    });
+  }).catch(function(err) {
+    console.warn('CloudBase init failed:', err.message || err);
+    updateSyncStatus('offline', '离线模式(认证)');
+    return false;
+  });
+}
+
+function updateSyncStatus(state, label) {
+  var el = document.getElementById('syncStatus');
+  if (!el) return;
+  var dot = el.querySelector('.sync-dot');
+  var lbl = document.getElementById('syncLabel');
+  el.className = 'sync-status ' + state;
+  if (dot) dot.className = 'sync-dot ' + state;
+  if (lbl) lbl.textContent = label;
+}
+
+function loadFromCloud() {
+  if (!isCloudReady) {
+    console.warn('[LoadFromCloud] CloudBase not ready');
+    return Promise.resolve(null);
+  }
+  updateSyncStatus('syncing', '加载中...');
+  console.log('[LoadFromCloud] Querying doc meetingId=' + DOC_ID);
+  return cloudCollection.where({ meetingId: DOC_ID }).limit(1).get().then(function(res) {
+    console.log('[LoadFromCloud] Query result:', res);
+    if (res.data && res.data.length > 0) {
+      var doc = res.data[0];
+      lastKnownVersion = doc.version || 0;
+      console.log('[LoadFromCloud] Found doc v' + lastKnownVersion + ', sections=' + (doc.data && doc.data.sections ? doc.data.sections.length : 'null'));
+      updateSyncStatus('online', '在线协作');
+      return doc.data;
+    }
+    console.log('[LoadFromCloud] No document found in cloud');
+    updateSyncStatus('online', '在线协作');
+    return null;
+  }).catch(function(err) {
+    console.error('[LoadFromCloud] FAILED:', err);
+    updateSyncStatus('offline', '离线模式(加载)');
+    return null;
+  });
+}
+
+function saveToCloud(agendaData) {
+  if (!isCloudReady) {
+    console.warn('[SaveToCloud] CloudBase not ready');
+    updateSyncStatus('offline', '离线模式(未连接)');
+    return Promise.resolve(false);
+  }
+  updateSyncStatus('syncing', '保存中...');
+  console.log('[SaveToCloud] Querying existing doc...');
+  return cloudCollection.where({ meetingId: DOC_ID }).limit(1).get().then(function(res) {
+    console.log('[SaveToCloud] Query result:', res);
+    if (res.data && res.data.length > 0) {
+      var doc = res.data[0];
+      var newVersion = (doc.version || 0) + 1;
+      console.log('[SaveToCloud] Updating doc _id=' + doc._id + ' v' + newVersion);
+      return cloudCollection.doc(doc._id).update({
+        data: agendaData,
+        version: newVersion,
+        updatedAt: new Date().toISOString(),
+        updatedBy: 'user'
+      }).then(function(updRes) {
+        console.log('[SaveToCloud] Update OK:', updRes);
+        lastKnownVersion = newVersion;
+        updateSyncStatus('online', '在线协作');
+        localDirty = false;
+        return true;
+      });
+    } else {
+      console.log('[SaveToCloud] No existing doc, creating new...');
+      return cloudCollection.add({
+        meetingId: DOC_ID, version: 1,
+        updatedAt: new Date().toISOString(), updatedBy: 'user',
+        data: agendaData
+      }).then(function(addRes) {
+        console.log('[SaveToCloud] Add OK:', addRes);
+        lastKnownVersion = 1;
+        updateSyncStatus('online', '在线协作');
+        localDirty = false;
+        return true;
+      });
+    }
+  }).catch(function(err) {
+    console.error('[SaveToCloud] FAILED:', err);
+    console.error('[SaveToCloud] Error details:', JSON.stringify(err));
+    updateSyncStatus('offline', '离线模式(保存)');
+    showToast('⚠️ 云端保存失败: ' + (err.message || err.errMsg || '未知错误'));
+    return false;
+  });
+}
+
+function watchCloudChanges() {
+  if (!isCloudReady) return;
+  try {
+    cloudWatcher = cloudCollection.where({ meetingId: DOC_ID }).watch({
+      onChange: function(snapshot) {
+        if (snapshot.docs && snapshot.docs.length > 0) {
+          var doc = snapshot.docs[0];
+          if (doc.version > lastKnownVersion) {
+            lastKnownVersion = doc.version;
+            if (!localDirty) {
+              applyRemoteData(doc.data);
+              showToast('🔄 检测到其他用户的更新，已同步');
+            }
+          }
+        }
+      },
+      onError: function(err) { console.warn('Watch error:', err); }
+    });
+  } catch (err) { console.warn('Watch setup failed:', err.message); }
+}
+
+function applyRemoteData(cloudData) {
+  if (!cloudData) return;
+  try {
+    var el;
+    if (cloudData.meetingNum && (el = document.getElementById('meetingNum'))) el.value = cloudData.meetingNum;
+    if (cloudData.meetingTheme && (el = document.getElementById('meetingTheme'))) el.value = cloudData.meetingTheme;
+    if (cloudData.meetingDate && (el = document.getElementById('meetingDate'))) el.value = cloudData.meetingDate;
+    if (cloudData.meetingStartTime) meetingStartTime = cloudData.meetingStartTime;
+  } catch(e) { console.warn('applyRemoteData header error:', e); }
+
+  try {
+    if (cloudData.sections && cloudData.sections.length > 0) {
+      currentData = JSON.parse(JSON.stringify(cloudData.sections));
+      window.currentData = currentData;
+      calculateTimeline();
+      renderTable();
+    }
+  } catch(e) { console.warn('applyRemoteData sections error:', e); }
+
+  try {
+    if (cloudData.sidebar) {
+      var sidebarInputs = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+      var keys = ['slogan','mission','wordOfDay','posterName','photographer','meetingTaboos'];
+      keys.forEach(function(key, i) {
+        if (sidebarInputs[i] && cloudData.sidebar[key] !== undefined) sidebarInputs[i].value = cloudData.sidebar[key];
+      });
+    }
+  } catch(e) { console.warn('applyRemoteData sidebar error:', e); }
+
+  try {
+    if (cloudData.posterText) {
+      var ta = document.querySelector('#posterArea textarea');
+      if (ta) ta.value = cloudData.posterText;
+    }
+  } catch(e) { console.warn('applyRemoteData poster error:', e); }
+}
+
+function collectAgendaData() {
+  try {
+    var sidebarInputs = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+    var sidebar = {
+      slogan: sidebarInputs[0] ? sidebarInputs[0].value : '',
+      mission: sidebarInputs[1] ? sidebarInputs[1].value : '',
+      wordOfDay: sidebarInputs[2] ? sidebarInputs[2].value : '',
+      posterName: sidebarInputs[3] ? sidebarInputs[3].value : '',
+      photographer: sidebarInputs[4] ? sidebarInputs[4].value : '',
+      meetingTaboos: sidebarInputs[5] ? sidebarInputs[5].value : ''
+    };
+    var posterTA = document.querySelector('#posterArea textarea');
+    return {
+      meetingNum: document.getElementById('meetingNum') ? document.getElementById('meetingNum').value : '',
+      meetingTheme: document.getElementById('meetingTheme') ? document.getElementById('meetingTheme').value : '',
+      meetingDate: document.getElementById('meetingDate') ? document.getElementById('meetingDate').value : '',
+      meetingStartTime: meetingStartTime,
+      sections: JSON.parse(JSON.stringify(window.currentData || currentData)),
+      sidebar: sidebar,
+      posterText: posterTA ? posterTA.value : ''
+    };
+  } catch(e) {
+    console.warn('collectAgendaData error:', e);
+    return { meetingNum:'', meetingTheme:'', meetingDate:'', meetingStartTime:'18:30', sections:[], sidebar:{}, posterText:'' };
+  }
+}
+
+function triggerAutoSave() {
+  localDirty = true;
+  if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = setTimeout(function() {
+    try {
+      var data = collectAgendaData();
+      // 先写 localStorage（总是成功）
+      localStorage.setItem('shptmc-agenda-local', JSON.stringify(data));
+      // 再尝试同步到云端
+      saveToCloud(data).then(function(ok) {
+        if (ok) {
+          console.log('[AutoSave] Cloud save OK, version=' + lastKnownVersion);
+        } else {
+          console.warn('[AutoSave] Cloud save FAILED (offline/error)');
+          showToast('⚠️ 云端保存失败，数据仅保存在本地');
+          updateSyncStatus('offline', '离线模式(保存)');
+        }
+      }).catch(function(err) {
+        console.error('[AutoSave] Cloud save exception:', err);
+        showToast('⚠️ 云端保存异常: ' + (err.message || '未知错误'));
+        updateSyncStatus('offline', '离线模式(保存)');
+      });
+    } catch(e) {
+      console.warn('[AutoSave] collectData error:', e);
+    }
+  }, 2000);
+}
+
+function manualSave() {
+  if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+  try {
+    var data = collectAgendaData();
+    localStorage.setItem('shptmc-agenda-local', JSON.stringify(data));
+    updateSyncStatus('syncing', '保存中...');
+    saveToCloud(data).then(function(ok) {
+      if (ok) {
+        showToast('✅ 已保存到云端 (v' + lastKnownVersion + ')');
+        updateSyncStatus('online', '在线协作');
+      } else {
+        showToast('⚠️ 云端保存失败，仅保存到本地');
+        updateSyncStatus('offline', '离线模式(保存)');
+      }
+    }).catch(function(err) {
+      console.error('[ManualSave] Error:', err);
+      showToast('⚠️ 保存异常: ' + (err.message || '未知错误'));
+      updateSyncStatus('offline', '离线模式(保存)');
+    });
+  } catch(e) {
+    console.warn('[ManualSave] Error:', e);
+    showToast('⚠️ 保存失败');
+  }
+}
+
+function watchSidebarChanges() {
+  try {
+    var els = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+    for (var i = 0; i < els.length; i++) {
+      els[i].addEventListener('input', triggerAutoSave);
+    }
+    var posterTA = document.querySelector('#posterArea textarea');
+    if (posterTA) posterTA.addEventListener('input', triggerAutoSave);
+    var meetingInputs = document.querySelectorAll('.meeting-info input');
+    for (var j = 0; j < meetingInputs.length; j++) {
+      meetingInputs[j].addEventListener('input', triggerAutoSave);
+    }
+  } catch(e) { console.warn('watchSidebarChanges error:', e); }
+}
+
+// ============================================================================
+// 时间自动计算
+// ============================================================================
+
+function timeToMinutes(timeStr) {
+  if (!timeStr || typeof timeStr !== 'string') return 0;
+  var parts = timeStr.trim().split(':');
+  if (parts.length !== 2) return 0;
+  var h = parseInt(parts[0], 10) || 0;
+  var m = parseInt(parts[1], 10) || 0;
+  return h * 60 + m;
+}
+
+function minutesToTime(totalMinutes) {
+  if (totalMinutes === null || totalMinutes === undefined || isNaN(totalMinutes)) return '';
+  totalMinutes = Math.round(totalMinutes);
+  var hours = Math.floor(Math.abs(totalMinutes) / 60) % 24;
+  var minutes = Math.abs(totalMinutes) % 60;
+  var sign = totalMinutes < 0 ? '-' : '';
+  return sign + String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+}
+
+/**
+ * 计算所有议程项的时间线并更新 currentData
+ * 从 meetingStartTime 开始，按顺序累加 green 时长
+ */
+function calculateTimeline() {
+  var currentMinutes = timeToMinutes(meetingStartTime);
+  var data = window.currentData;
+
+  data.forEach(function(section) {
+    section.rows.forEach(function(row) {
+      var greenVal = parseFloat(row.g);
+      // 设置当前行开始时间
+      row.time = minutesToTime(currentMinutes);
+      // 累加到下一行
+      if (!isNaN(greenVal) && greenVal > 0) {
+        currentMinutes += greenVal;
+      }
+    });
+  });
+
+  return data;
+}
+
+/** 点击"计算时间线"按钮时调用 */
+function calculateAndRender() {
+  // 尝试从页面输入框获取开始时间
+  var startTimeInput = document.getElementById('meetingStartTime');
+  if (startTimeInput && startTimeInput.value.trim()) {
+    meetingStartTime = startTimeInput.value.trim();
+  }
+
+  calculateTimeline();
+  renderTable();
+  showToast('⏱️ 时间线已根据 Green 时长重新计算！');
+}
+
+// ============================================================================
+// 工具函数
+// ============================================================================
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
+ * 创建角色下拉选择器（替代原来的 input 文本框）
+ */
+function createRoleSelect(value, si, ri) {
+  var select = document.createElement('select');
+  select.dataset.si = si;
+  select.dataset.ri = ri;
+  select.dataset.field = 'role';
+  select.className = 'role-select';
+
+  TM_ROLES.forEach(function(group) {
+    var optgroup = document.createElement('optgroup');
+    optgroup.label = group.optgroup;
+    group.roles.forEach(function(role) {
+      var option = document.createElement('option');
+      option.value = role.value;
+      option.textContent = role.label;
+      if (value === role.value) option.selected = true;
+      optgroup.appendChild(option);
+    });
+    select.appendChild(optgroup);
+  });
+
+  // 自定义选项
+  var customOpt = document.createElement('option');
+  customOpt.value = '__custom__';
+  customOpt.textContent = '✏️ 自定义...';
+  select.appendChild(customOpt);
+  if (value && !TM_ROLES.some(function(g) { return g.roles.some(function(r) { return r.value === value; }); })) {
+    customOpt.selected = true;
+    // 在自定义选项前插入实际值
+    var actualOpt = document.createElement('option');
+    actualOpt.value = value;
+    actualOpt.textContent = '📌 ' + value + ' (当前)';
+    select.insertBefore(actualOpt, customOpt);
+  }
+
+  select.addEventListener('change', function() {
+    if (this.value === '__custom__') {
+      var customRole = prompt('请输入自定义角色名称：');
+      if (customRole && customRole.trim()) {
+        this.value = customRole.trim();
+        syncField(this);
+      } else {
+        this.selectedIndex = 0; // 回退
+      }
+    } else {
+      syncField(this);
+    }
+  });
+
+  return select;
+}
+
+function syncField(el) {
+  var si = parseInt(el.dataset.si);
+  var ri = parseInt(el.dataset.ri);
+  var field = el.dataset.field;
+  var data = window.currentData;
+  if (data[si] && data[si].rows[ri]) {
+    data[si].rows[ri][field] = el.value;
+  }
+}
+
+// ============================================================================
+// 渲染表格
+// ============================================================================
+
+function renderTable() {
+  var tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  var data = window.currentData;
+  data.forEach(function(section, si) {
+    // Section header row
+    var headerRow = document.createElement('tr');
+    headerRow.className = 'section-header-row';
+    headerRow.innerHTML = '<td colspan="6">' + escapeHtml(section.title) + ' <button class="delete-row-btn" onclick="deleteSection(' + si + ')" title="删除此分组">×</button></td>';
+    tbody.appendChild(headerRow);
+
+    // Data rows
+    section.rows.forEach(function(row, ri) {
+      var tr = document.createElement('tr');
+
+      // Time column (auto-calculated, read-only display)
+      var tdTime = document.createElement('td');
+      tdTime.className = 'col-time';
+      var spanTime = document.createElement('span');
+      spanTime.className = 'calculated-time';
+      spanTime.textContent = escapeHtml(row.time);
+      if (row.isBreak) spanTime.classList.add('break-time');
+      tdTime.appendChild(spanTime);
+      tr.appendChild(tdTime);
+
+      // Content
+      var tdContent = document.createElement('td');
+      tdContent.className = 'col-content';
+      var inpContent = document.createElement('input');
+      inpContent.type = 'text';
+      inpContent.value = escapeHtml(row.content);
+      inpContent.dataset.si = si;
+      inpContent.dataset.ri = ri;
+      inpContent.dataset.field = 'content';
+      inpContent.addEventListener('change', function() { syncField(this); });
+      tdContent.appendChild(inpContent);
+      tr.appendChild(tdContent);
+
+      // Duration (G/Y/R)
+      var tdDuration = document.createElement('td');
+      tdDuration.className = 'col-duration';
+      var divDuration = document.createElement('div');
+      divDuration.className = 'duration-cells';
+
+      ['g', 'y', 'r'].forEach(function(field) {
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.value = escapeHtml(row[field] || '');
+        inp.dataset.si = si;
+        inp.dataset.ri = ri;
+        inp.dataset.field = field;
+        inp.title = { g: 'Green (合格)', y: 'Yellow (警告)', r: 'Red (超时)' } [field];
+        inp.placeholder = field.toUpperCase();
+        inp.addEventListener('change', function() {
+          syncField(this);
+          // 当修改时长时，标记需要重新计算
+          this.classList.add('needs-recalc');
+        });
+        divDuration.appendChild(inp);
+      });
+
+      tdDuration.appendChild(divDuration);
+      tr.appendChild(tdDuration);
+
+      // Role (SELECT dropdown)
+      var tdRole = document.createElement('td');
+      tdRole.className = 'col-role';
+      var roleSelect = createRoleSelect(row.role || '', si, ri);
+      tdRole.appendChild(roleSelect);
+      tr.appendChild(tdRole);
+
+      // Name
+      var tdName = document.createElement('td');
+      tdName.className = 'col-name';
+      var inpName = document.createElement('input');
+      inpName.type = 'text';
+      inpName.value = escapeHtml(row.name || '');
+      inpName.dataset.si = si;
+      inpName.dataset.ri = ri;
+      inpName.dataset.field = 'name';
+      inpName.addEventListener('change', function() { syncField(this); });
+      tdName.appendChild(inpName);
+      tr.appendChild(tdName);
+
+      // Action
+      var tdAction = document.createElement('td');
+      tdAction.className = 'action-cell';
+      var btnDelete = document.createElement('button');
+      btnDelete.className = 'delete-row-btn';
+      btnDelete.textContent = '×';
+      btnDelete.title = '删除此行';
+      btnDelete.onclick = function() { deleteRow(si, ri); };
+      tdAction.appendChild(btnDelete);
+      tr.appendChild(tdAction);
+
+      tbody.appendChild(tr);
+    });
+  });
+}
+
+function addNewRow() {
+  var targetIndex = -1;
+  var data = window.currentData;
+  for (var i = data.length - 1; i >= 0; i--) {
+    if (data[i].rows.length > 0) { targetIndex = i; break; }
+  }
+  if (targetIndex === -1) targetIndex = 0;
+
+  data[targetIndex].rows.push({ time: "", content: "", g: "", y: "", r: "", role: "", name: "" });
+  renderTable();
+
+  var allRows = document.querySelectorAll('#tableBody tr');
+  if (allRows.length > 0) {
+    var lastRow = allRows[allRows.length - 1];
+    if (typeof lastRow.scrollIntoView === 'function') {
+      lastRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    setTimeout(function() {
+      var inputs = lastRow.querySelectorAll('input');
+      if (inputs && inputs[0] && typeof inputs[0].focus === 'function') inputs[0].focus();
+    }, 100);
+  }
+  showToast('已添加新议程项 ✏️ 请填写内容');
+}
+
+function addSectionHeader() {
+  var title = prompt('请输入分组标题（如：备稿演讲、即兴演讲等）：', '新分组');
+  if (title !== null && title.trim() !== '') {
+    window.currentData.push({ title: title.trim(), rows: [] });
+    renderTable();
+    showToast('已添加新分组：' + title.trim());
+  }
+}
+
+function deleteRow(si, ri) {
+  if (confirm('确定删除该议程项吗？')) {
+    window.currentData[si].rows.splice(ri, 1);
+    renderTable();
+    calculateTimeline(); // 重算时间线
+    renderTable();
+    showToast('已删除议程项，时间线已重算');
+    triggerAutoSave();
+  }
+}
+
+function deleteSection(si) {
+  if (confirm('确定删除整个「' + window.currentData[si].title + '」分组吗？')) {
+    window.currentData.splice(si, 1);
+    renderTable();
+    calculateTimeline();
+    renderTable();
+    showToast('已删除分组，时间线已重算');
+    triggerAutoSave();
+  }
+}
+
+/**
+ * 导出为"智能表格兼容格式"
+ * 生成可直接被 CodeBuddy Agent 推送到腾讯文档的 JSON
+ * 格式与 sync-adapter.js 的 htmlToSmartSheet() 输出一致
+ */
+function exportForSmartSheet() {
+  calculateTimeline();
+
+  var startTime = meetingStartTime || '18:30';
+  var currentMinutes = timeToMinutes(startTime);
+  var sortOrder = 0;
+
+  var agendaRecords = [];
+  var data = window.currentData;
+
+  for (var si = 0; si < data.length; si++) {
+    var section = data[si];
+    for (var ri = 0; ri < section.rows.length; ri++) {
+      var row = section.rows[ri];
+      sortOrder++;
+      var calcTime = minutesToTime(currentMinutes);
+
+      agendaRecords.push({
+        section: section.title || '',
+        sortOrder: sortOrder,
+        content: row.content || '',
+        green: parseFloat(row.g) || 0,
+        yellow: parseFloat(row.y) || 0,
+        red: parseFloat(row.r) || 0,
+        role: row.role || '',
+        name: row.name || '',
+        calculatedTime: row.time || calcTime,
+        isBreak: !!row.isBreak
+      });
+
+      // 累加时间
+      var gv = parseFloat(row.g);
+      if (!isNaN(gv) && gv > 0) currentMinutes += gv;
+    }
+  }
+
+  // 收集元数据（从 DOM 输入框）
+  var metadata = {
+    clubName: "Shanghai AI Club Toastmasters Club",
+    clubNameCN: "上海 AI Club (SH-AI-TMC)",
+    slogan: '',
+    mission: '',
+    meetingNum: (function(){var e=document.getElementById('meetingNum');return e?e.value:'4';})(),
+    meetingTheme: (function(){var e=document.getElementById('meetingTheme');return e?e.value:'';})(),
+    meetingDate: (function(){var e=document.getElementById('meetingDate');return e?e.value:'';})(),
+    meetingStartTime: startTime,
+    wordOfDay: '',
+    wordMeaning: '',
+    wordSentence: '',
+    posterName: '',
+    photographer: '',
+    meetingTaboos: '',
+    posterContent: '',
+    footerNote1: '',
+    footerNote2: '',
+    address: ''
+  };
+
+  var sidebarEls = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+  var sidebarKeys = ['slogan','mission','wordOfDay','posterName','photographer','meetingTaboos'];
+  var si = 0;
+  for (var ki = 0; ki < sidebarKeys.length; ki++) {
+    var key = sidebarKeys[ki];
+    if (sidebarEls[si]) metadata[key] = sidebarEls[si].value;
+    si++;
+  }
+
+  var posterTA = document.querySelector('#posterArea textarea');
+  if (posterTA) metadata.posterContent = posterTA.value;
+
+  var footers = document.querySelectorAll('.footer-note textarea');
+  if (footers[0]) metadata.footerNote1 = footers[0].value;
+  if (footers[1]) metadata.footerNote2 = footers[1].value;
+  metadata.address = (function(){var el=document.querySelector('.address-section');return el?el.innerText?el.innerText.trim():'':'';})() || '';
+
+  var exportData = {
+    _format: 'tmc-smartsheet-v1',
+    _exportedAt: new Date().toISOString(),
+    _fileId: 'QofVxYSpwZOA',
+    _sheetIdAgenda: 'Iwmtm2',
+    _sheetIdMeta: 'iNVqSP',
+    metadata: metadata,
+    agendaRecords: agendaRecords
+  };
+
+  var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'sh-ai-tmc-smartsheet-' + (metadata.meetingDate || 'untitled').replace(/\s+/g, '-') + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📤 已导出智能表格兼容格式！可提供给 Agent 同步到腾讯文档');
+}
+
+function saveAgenda() {
+  // 确保时间线最新
+  calculateTimeline();
+
+  var data = {
+    meetingNum: document.getElementById('meetingNum').value,
+    meetingTheme: document.getElementById('meetingTheme').value,
+    meetingDate: document.getElementById('meetingDate').value,
+    meetingStartTime: meetingStartTime,
+    sidebar: {},
+    sections: window.currentData
+  };
+
+  document.querySelectorAll('.sidebar-value input, .sidebar-value textarea').forEach(function(el, i) {
+    data.sidebar['field_' + i] = el.value;
+  });
+
+  var posterTA = document.querySelector('#posterArea textarea');
+  if (posterTA) data.posterText = posterTA.value;
+
+  var footerTAs = document.querySelectorAll('.footer-note textarea');
+  data.footerNote1 = footerTAs[0] ? footerTAs[0].value : '';
+  data.footerNote2 = footerTAs[1] ? footerTAs[1].value : '';
+
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'sh-ai-tmc-agenda-' + (data.meetingDate || 'untitled').replace(/\s+/g, '-') + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('议程已导出为 JSON 文件！（可用于导入腾讯文档）');
+
+  // Also sync to cloud
+  triggerAutoSave();
+}
+
+function loadAgenda() {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      try {
+        var data = JSON.parse(ev.target.result);
+
+        // 检测是否为智能表格格式
+        if (data._format === 'tmc-smartsheet-v1' && data.agendaRecords) {
+          // 智能表格格式：扁平记录 -> 分组数组
+          importFromSmartSheetFormat(data);
+          return;
+        }
+
+        // 原有 HTML 格式加载
+        document.getElementById('meetingNum').value = data.meetingNum || '';
+        document.getElementById('meetingTheme').value = data.meetingTheme || '';
+        document.getElementById('meetingDate').value = data.meetingDate || '';
+
+        if (data.startTime || data.meetingStartTime) {
+          meetingStartTime = data.startTime || data.meetingStartTime;
+        }
+
+        if (data.sidebar) {
+          var sidebarInputs = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+          Object.keys(data.sidebar).forEach(function(key) {
+            var idx = parseInt(key.replace('field_', ''));
+            if (sidebarInputs[idx]) sidebarInputs[idx].value = data.sidebar[key];
+          });
+        }
+
+        if (data.posterText) {
+          var posterTA = document.querySelector('#posterArea textarea');
+          if (posterTA) posterTA.value = data.posterText;
+        }
+
+        if (data.sections) {
+          currentData = data.sections;
+          window.currentData = currentData;
+          calculateTimeline();
+          renderTable();
+        }
+
+        if (data.footerNote1 !== undefined) {
+          var footerTAs = document.querySelectorAll('.footer-note textarea');
+          if (footerTAs[0]) footerTAs[0].value = data.footerNote1;
+          if (footerTAs[1]) footerTAs[1].value = data.footerNote2 || '';
+        }
+
+        showToast('议程加载成功！时间线已计算。');
+        triggerAutoSave();
+      } catch(err) {
+        alert('文件格式错误，无法加载。请选择有效的议程JSON文件。');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+/**
+ * 从智能表格格式导入数据
+ * 将扁平的 agendaRecords 转换回 HTML 的 currentData 分组格式
+ */
+function importFromSmartSheetFormat(data) {
+  var meta = data.metadata || {};
+
+  // 填充元数据到 DOM
+  if (meta.meetingNum) document.getElementById('meetingNum').value = meta.meetingNum;
+  if (meta.meetingTheme) document.getElementById('meetingTheme').value = meta.meetingTheme;
+  if (meta.meetingDate) document.getElementById('meetingDate').value = meta.meetingDate;
+
+  if (meta.meetingStartTime) meetingStartTime = meta.meetingStartTime;
+
+  // 填充 sidebar
+  var sidebarDefaults = [
+    meta.slogan || '',
+    meta.mission || '',
+    meta.wordOfDay || '',
+    meta.posterName || '',
+    meta.photographer || '',
+    meta.meetingTaboos || ''
+  ];
+  var sidebarInputs = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+  sidebarDefaults.forEach(function(val, i) {
+    if (sidebarInputs[i]) sidebarInputs[i].value = val;
+  });
+
+  // poster content
+  if (meta.posterContent) {
+    var posterTA = document.querySelector('#posterArea textarea');
+    if (posterTA) posterTA.value = meta.posterContent;
+  }
+
+  // footer notes
+  if (meta.footerNote1 !== undefined || meta.footerNote2 !== undefined) {
+    var footers = document.querySelectorAll('.footer-note textarea');
+    if (footers[0] && meta.footerNote1 !== undefined) footers[0].value = meta.footerNote1;
+    if (footers[1] && meta.footerNote2 !== undefined) footers[1].value = meta.footerNote2;
+  }
+
+  // 将扁平记录按 section 分组 -> currentData 格式
+  var sectionMap = {};
+  for (var ri2 = 0; ri2 < data.agendaRecords.length; ri2++) {
+    var rec = data.agendaRecords[ri2];
+    var secTitle = rec.section || '未分类';
+    if (!sectionMap[secTitle]) {
+      sectionMap[secTitle] = { title: secTitle, rows: [] };
+    }
+    sectionMap[secTitle].rows.push({
+      time: rec.calculatedTime || '',
+      content: rec.content || '',
+      g: String(rec.green !== undefined && rec.green !== '' ? rec.green : ''),
+      y: String(rec.yellow !== undefined && rec.yellow !== '' ? rec.yellow : ''),
+      r: String(rec.red !== undefined && rec.red !== '' ? rec.red : ''),
+      role: rec.role || '',
+      name: rec.name || '',
+      isBreak: !!rec.isBreak
+    });
+  }
+
+  // 按 TM_SECTIONS 顺序排列（已知分组优先）
+  var knownSections = ['迎宾与接待','开场致辞+官员团队介绍','备稿演讲','即兴演讲',
+    '来宾交流、合影','嘉宾分享','评估团队交付报告','投票+来宾反馈+颁奖','会议总结'];
+  var sections = [];
+  for (var ni = 0; ni < knownSections.length; ni++) {
+    var name = knownSections[ni];
+    if (sectionMap[name]) {
+      sections.push(sectionMap[name]);
+      delete sectionMap[name];
+    }
+  }
+  // 追加剩余分组
+  var sectionKeys = Object.keys(sectionMap);
+  for (var ki2 = 0; ki2 < sectionKeys.length; ki2++) {
+    sections.push(sectionMap[sectionKeys[ki2]]);
+  }
+
+  currentData = sections;
+  window.currentData = currentData;
+  calculateTimeline();
+  renderTable();
+  showToast('📥 已从智能表格格式导入！' + data.agendaRecords.length + ' 条议程记录，时间线已计算。');
+  triggerAutoSave();
+}
+
+function resetToTemplate() {
+  if (confirm('确定要重置为默认模板吗？所有未保存的修改将丢失。')) {
+    currentData = JSON.parse(JSON.stringify(templateSections));
+    window.currentData = currentData;
+    meetingStartTime = '18:30';
+    document.getElementById('meetingNum').value = '4';
+    document.getElementById('meetingTheme').value = '以共情唤共鸣——演讲中的情感密码';
+    document.getElementById('meetingDate').value = 'May 16th, 2026';
+
+    var sidebarDefaults = [
+      "以共情唤共鸣，以真诚换真心",
+      "赋能每一位会员在演讲与领导力上的成长，打造温暖、包容、互助的演讲社群。",
+      "共情",
+      "麦子",
+      "余科",
+      "Politics、Religion、Sex、Low-Taste"
+    ];
+    var sidebarInputs = document.querySelectorAll('.sidebar-value input, .sidebar-value textarea');
+    sidebarDefaults.forEach(function(val, i) {
+      if (sidebarInputs[i]) sidebarInputs[i].value = val;
+    });
+
+    calculateTimeline();
+    renderTable();
+    showToast('已重置为模板默认值，时间线已计算');
+    triggerAutoSave();
+  }
+}
+
+function showToast(msg) {
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 2200);
+}
+
+// ============================================================================
+// 初始化：先渲染基础页面，再异步连接云端（绝不影响页面可用性）
+// ============================================================================
+(function initBaseline() {
+  // 立即渲染模板数据 — 这是最快的路径，不等待任何异步操作
+  calculateTimeline();
+  renderTable();
+})();
+
+// 异步初始化：加载 localStorage + CloudBase
+(function initAsync() {
+  var localLoaded = false;
+  console.log('[InitAsync] Starting async init...');
+
+  // Step 1: localStorage 恢复（如果有保存的数据）
+  try {
+    var localRaw = localStorage.getItem('shptmc-agenda-local');
+    if (localRaw) {
+      var data = JSON.parse(localRaw);
+      console.log('[InitAsync] Found localStorage data, sections=' + (data.sections ? data.sections.length : 0));
+      if (data && data.sections && data.sections.length > 0) {
+        applyRemoteData(data);
+        localLoaded = true;
+        console.log('[InitAsync] Local data applied to page');
+      }
+    } else {
+      console.log('[InitAsync] No localStorage data found');
+    }
+  } catch (e) { console.warn('[InitAsync] localStorage parse error:', e); }
+
+  // Step 2: 连接 CloudBase（异步，不阻塞）
+  console.log('[InitAsync] Connecting to CloudBase...');
+  initCloudBase().then(function(cloudOk) {
+    console.log('[InitAsync] CloudBase init result:', cloudOk);
+    if (cloudOk) {
+      console.log('[InitAsync] Loading data from cloud...');
+      return loadFromCloud().then(function(cloudData) {
+        console.log('[InitAsync] Cloud data loaded:', cloudData ? 'yes (sections=' + (cloudData.sections ? cloudData.sections.length : 0) + ')' : 'null');
+        // 云端数据覆盖本地（云端视为权威源）
+        if (cloudData && cloudData.sections && cloudData.sections.length > 0) {
+          applyRemoteData(cloudData);
+          console.log('[InitAsync] Cloud data applied, overriding local');
+        } else if (!localLoaded) {
+          // 云端和本地都无数据 → 首次使用，上传模板
+          console.log('[InitAsync] First use — uploading template to cloud');
+          triggerAutoSave();
+        }
+        // 启动实时监听
+        watchCloudChanges();
+        console.log('[InitAsync] Cloud watch started');
+      });
+    } else {
+      console.warn('[InitAsync] CloudBase init failed — using offline mode');
+      if (localLoaded) {
+        showToast('📱 离线模式，数据保存在本地');
+      }
+    }
+  }).catch(function(err) {
+    console.error('[InitAsync] CloudBase init chain error:', err);
+  });
+
+  // Step 3: Hook 自动保存（无论云端是否可用）
+  try {
+    // 包装 syncField 以触发自动保存
+    var _originalSync = syncField;
+    syncField = function(el) {
+      _originalSync(el);
+      triggerAutoSave();
+    };
+
+    // 监听所有输入变化
+    watchSidebarChanges();
+
+    // 监听 header 输入框
+    var meetingNum = document.getElementById('meetingNum');
+    var meetingTheme = document.getElementById('meetingTheme');
+    var meetingDate = document.getElementById('meetingDate');
+    if (meetingNum) meetingNum.addEventListener('change', triggerAutoSave);
+    if (meetingTheme) meetingTheme.addEventListener('change', triggerAutoSave);
+    if (meetingDate) meetingDate.addEventListener('change', triggerAutoSave);
+  } catch(e) { console.warn('Hook auto-save error:', e); }
+})();
+</script>
+</body>
+</html>
