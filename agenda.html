@@ -263,6 +263,46 @@
     min-height: 180px;
   }
 
+  .poster-title-input {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed rgba(255,255,255,0.3);
+    color: var(--tm-gold);
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    font-family: inherit;
+    resize: none;
+    min-height: 48px;
+    padding: 4px 8px;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
+  .poster-title-input:focus {
+    border-color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.08);
+  }
+  .poster-subtitle-input {
+    width: 100%;
+    background: transparent;
+    border: 1px dashed rgba(255,255,255,0.3);
+    color: var(--tm-gold);
+    font-size: 11px;
+    text-align: center;
+    font-family: inherit;
+    padding: 3px 8px;
+    margin: 6px 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
+  .poster-subtitle-input:focus {
+    border-color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.08);
+  }
   .poster-title {
     font-size: 16px;
     font-weight: 700;
@@ -744,6 +784,15 @@
       font-size: 13px;
       margin-bottom: 4px;
     }
+    .poster-title-input {
+      font-size: 13px;
+      min-height: 40px;
+      padding: 3px 6px;
+    }
+    .poster-subtitle-input {
+      font-size: 10px;
+      padding: 2px 6px;
+    }
     .poster-speaker {
       font-size: 15px;
     }
@@ -989,8 +1038,8 @@
       <div class="sidebar-section" style="padding: 0;">
         <div class="poster-area" id="posterArea">
           <div style="font-size:11px;opacity:0.7;margin-bottom:4px;">SHP 上海科技演讲俱乐部</div>
-          <div class="poster-title">以共情唤共鸣<br>——演讲中的情感密码</div>
-          <div style="font-size:11px;margin:6px 0;color:var(--tm-gold);">分享情感密码，解锁演讲魅力</div>
+          <textarea class="poster-title-input" placeholder="海报标题...">以共情唤共鸣\n——演讲中的情感密码</textarea>
+          <input type="text" class="poster-subtitle-input" value="分享情感密码，解锁演讲魅力" placeholder="副标题..." />
           <div style="margin-top:10px;">
             <textarea style="background:rgba(255,255,255,0.1);border:1px dashed rgba(255,255,255,0.3);color:#fff;font-size:10.5px;width:100%;min-height:80px;resize:none;" placeholder="本次分享嘉宾信息...">本次分享嘉宾
 麦子
@@ -1192,6 +1241,10 @@ var meetingStartTime = '18:30';
 var CLOUDBASE_ENV = 'qianqianxun-d6gbfqrhp630f6455';
 var DOC_ID = 'shptmc-latest';
 var SDK_URL = 'https://static.cloudbase.net/cloudbase-js-sdk/latest/cloudbase.full.js';
+// HTTP API fallback: cloud function bypasses Web SDK domain whitelist
+var CF_URL = 'https://qianqianxun-d6gbfqrhp630f6455.service.tcloudbase.com/agenda-api';
+var CF_API_KEY = 'tmc-agenda-2026';
+var useHttpApi = false; // true when Web SDK is blocked, HTTP API works
 var cloudApp = null, cloudDb = null, cloudCollection = null;
 var cloudWatcher = null, isCloudReady = false;
 var saveDebounceTimer = null, lastKnownVersion = 0, localDirty = false;
@@ -1225,12 +1278,64 @@ function loadCloudBaseSDK() {
   });
 }
 
+// HTTP API 调用（通过云函数代理，绕过 Web SDK 域名白名单限制）
+function callCloudApi(action, data) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', CF_URL, true);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    xhr.timeout = 10000;
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          var result = JSON.parse(xhr.responseText);
+          if (result.code === 0) {
+            resolve(result);
+          } else {
+            reject(new Error(result.error || 'API error'));
+          }
+        } catch (e) {
+          reject(new Error('Invalid JSON response'));
+        }
+      } else {
+        reject(new Error('HTTP ' + xhr.status + ': ' + xhr.responseText.substring(0, 100)));
+      }
+    };
+    xhr.onerror = function() { reject(new Error('Network error')); };
+    xhr.ontimeout = function() { reject(new Error('Request timeout (10s)')); };
+    xhr.send(JSON.stringify({ apiKey: CF_API_KEY, action: action, data: data || null }));
+  });
+}
+
+// 尝试 HTTP API 连通性检查
+function tryHttpApi() {
+  console.log('[HttpApi] Testing cloud function connectivity...');
+  return callCloudApi('ping').then(function(result) {
+    console.log('[HttpApi] Cloud function reachable:', result.ok);
+    return result.ok === true;
+  }).catch(function(err) {
+    console.warn('[HttpApi] Cloud function unreachable:', err.message);
+    return false;
+  });
+}
+
 function initCloudBase() {
+  useHttpApi = false;
   updateSyncStatus('syncing', '连接中...');
   return loadCloudBaseSDK().then(function(sdkOk) {
     if (!sdkOk) {
-      updateSyncStatus('offline', '离线模式(SDK)');
-      return false;
+      // SDK 加载失败 → 尝试 HTTP API
+      console.log('[Init] Web SDK failed, trying HTTP API...');
+      return tryHttpApi().then(function(apiOk) {
+        if (apiOk) {
+          useHttpApi = true;
+          isCloudReady = true;
+          updateSyncStatus('online', '在线协作(API)');
+          return true;
+        }
+        updateSyncStatus('offline', '离线模式(SDK)');
+        return false;
+      });
     }
     cloudApp = cloudbase.init({ env: CLOUDBASE_ENV, region: 'ap-shanghai' });
     return cloudApp.auth({ persistence: 'local' }).anonymousAuthProvider().signIn().then(function() {
@@ -1241,9 +1346,20 @@ function initCloudBase() {
       return true;
     });
   }).catch(function(err) {
-    console.warn('CloudBase init failed:', err.message || err);
-    updateSyncStatus('offline', '离线模式(认证)');
-    return false;
+    console.warn('CloudBase Web SDK init failed:', err.message || err);
+    // Web SDK 认证失败（可能是域名白名单限制）→ 尝试 HTTP API
+    console.log('[Init] Web SDK auth failed, trying HTTP API fallback...');
+    return tryHttpApi().then(function(apiOk) {
+      if (apiOk) {
+        useHttpApi = true;
+        isCloudReady = true;
+        updateSyncStatus('online', '在线协作(API)');
+        console.log('[Init] HTTP API fallback active');
+        return true;
+      }
+      updateSyncStatus('offline', '离线模式(认证)');
+      return false;
+    });
   });
 }
 
@@ -1262,6 +1378,24 @@ function loadFromCloud() {
     console.warn('[LoadFromCloud] CloudBase not ready');
     return Promise.resolve(null);
   }
+
+  // HTTP API 模式：通过云函数代理加载
+  if (useHttpApi) {
+    console.log('[LoadFromCloud] Using HTTP API...');
+    updateSyncStatus('syncing', '加载中(API)...');
+    return callCloudApi('load').then(function(result) {
+      console.log('[LoadFromCloud] API result: v' + result.version + ', hasData=' + !!result.data);
+      lastKnownVersion = result.version || 0;
+      updateSyncStatus('online', '在线协作(API)');
+      return result.data || null;
+    }).catch(function(err) {
+      console.error('[LoadFromCloud] HTTP API FAILED:', err.message);
+      updateSyncStatus('offline', '离线模式(API)');
+      return null;
+    });
+  }
+
+  // Web SDK 模式
   updateSyncStatus('syncing', '加载中...');
   console.log('[LoadFromCloud] Querying doc meetingId=' + DOC_ID);
   return cloudCollection.where({ meetingId: DOC_ID }).limit(1).get().then(function(res) {
@@ -1289,6 +1423,26 @@ function saveToCloud(agendaData) {
     updateSyncStatus('offline', '离线模式(未连接)');
     return Promise.resolve(false);
   }
+
+  // HTTP API 模式：通过云函数代理保存
+  if (useHttpApi) {
+    console.log('[SaveToCloud] Using HTTP API...');
+    updateSyncStatus('syncing', '保存中(API)...');
+    return callCloudApi('save', agendaData).then(function(result) {
+      console.log('[SaveToCloud] API save OK: v' + result.version);
+      lastKnownVersion = result.version || 0;
+      updateSyncStatus('online', '在线协作(API)');
+      localDirty = false;
+      return true;
+    }).catch(function(err) {
+      console.error('[SaveToCloud] HTTP API FAILED:', err.message);
+      updateSyncStatus('offline', '离线模式(API)');
+      showToast('⚠️ 云端保存失败(API): ' + err.message);
+      return false;
+    });
+  }
+
+  // Web SDK 模式
   updateSyncStatus('syncing', '保存中...');
   console.log('[SaveToCloud] Querying existing doc...');
   return cloudCollection.where({ meetingId: DOC_ID }).limit(1).get().then(function(res) {
@@ -1334,6 +1488,11 @@ function saveToCloud(agendaData) {
 
 function watchCloudChanges() {
   if (!isCloudReady) return;
+  // HTTP API mode doesn't support real-time watch
+  if (useHttpApi) {
+    console.log('[Watch] HTTP API mode — real-time watch not available');
+    return;
+  }
   try {
     cloudWatcher = cloudCollection.where({ meetingId: DOC_ID }).watch({
       onChange: function(snapshot) {
@@ -1387,6 +1546,14 @@ function applyRemoteData(cloudData) {
       var ta = document.querySelector('#posterArea textarea');
       if (ta) ta.value = cloudData.posterText;
     }
+    if (cloudData.posterTitle) {
+      var pt = document.querySelector('.poster-title-input');
+      if (pt) pt.value = cloudData.posterTitle;
+    }
+    if (cloudData.posterSubtitle) {
+      var ps = document.querySelector('.poster-subtitle-input');
+      if (ps) ps.value = cloudData.posterSubtitle;
+    }
   } catch(e) { console.warn('applyRemoteData poster error:', e); }
 }
 
@@ -1402,6 +1569,8 @@ function collectAgendaData() {
       meetingTaboos: sidebarInputs[5] ? sidebarInputs[5].value : ''
     };
     var posterTA = document.querySelector('#posterArea textarea');
+    var posterTitleEl = document.querySelector('.poster-title-input');
+    var posterSubEl = document.querySelector('.poster-subtitle-input');
     return {
       meetingNum: document.getElementById('meetingNum') ? document.getElementById('meetingNum').value : '',
       meetingTheme: document.getElementById('meetingTheme') ? document.getElementById('meetingTheme').value : '',
@@ -1409,7 +1578,9 @@ function collectAgendaData() {
       meetingStartTime: meetingStartTime,
       sections: JSON.parse(JSON.stringify(window.currentData || currentData)),
       sidebar: sidebar,
-      posterText: posterTA ? posterTA.value : ''
+      posterText: posterTA ? posterTA.value : '',
+      posterTitle: posterTitleEl ? posterTitleEl.value : '',
+      posterSubtitle: posterSubEl ? posterSubEl.value : ''
     };
   } catch(e) {
     console.warn('collectAgendaData error:', e);
@@ -1447,27 +1618,29 @@ function triggerAutoSave() {
 
 function manualSave() {
   if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+  var savedLocally = false;
   try {
     var data = collectAgendaData();
     localStorage.setItem('shptmc-agenda-local', JSON.stringify(data));
-    updateSyncStatus('syncing', '保存中...');
-    saveToCloud(data).then(function(ok) {
-      if (ok) {
-        showToast('✅ 已保存到云端 (v' + lastKnownVersion + ')');
-        updateSyncStatus('online', '在线协作');
-      } else {
-        showToast('⚠️ 云端保存失败，仅保存到本地');
-        updateSyncStatus('offline', '离线模式(保存)');
-      }
-    }).catch(function(err) {
-      console.error('[ManualSave] Error:', err);
-      showToast('⚠️ 保存异常: ' + (err.message || '未知错误'));
-      updateSyncStatus('offline', '离线模式(保存)');
-    });
+    savedLocally = true;
   } catch(e) {
-    console.warn('[ManualSave] Error:', e);
-    showToast('⚠️ 保存失败');
+    console.warn('[ManualSave] local save error:', e);
   }
+
+  updateSyncStatus('syncing', '保存中...');
+  saveToCloud(data || collectAgendaData()).then(function(ok) {
+    if (ok) {
+      showToast('✅ 已保存到云端 (v' + lastKnownVersion + ')' + (useHttpApi ? ' [API模式]' : ''));
+      updateSyncStatus('online', useHttpApi ? '在线协作(API)' : '在线协作');
+    } else if (savedLocally) {
+      showToast('⚠️ 仅保存到本地');
+      updateSyncStatus('offline', '离线模式');
+    }
+  }).catch(function(err) {
+    console.error('[ManualSave] Error:', err);
+    showToast('⚠️ 保存异常: ' + (err.message || '未知错误'));
+    updateSyncStatus('offline', '离线模式');
+  });
 }
 
 function watchSidebarChanges() {
@@ -1478,6 +1651,10 @@ function watchSidebarChanges() {
     }
     var posterTA = document.querySelector('#posterArea textarea');
     if (posterTA) posterTA.addEventListener('input', triggerAutoSave);
+    var posterTitleEl = document.querySelector('.poster-title-input');
+    if (posterTitleEl) posterTitleEl.addEventListener('input', triggerAutoSave);
+    var posterSubEl = document.querySelector('.poster-subtitle-input');
+    if (posterSubEl) posterSubEl.addEventListener('input', triggerAutoSave);
     var meetingInputs = document.querySelectorAll('.meeting-info input');
     for (var j = 0; j < meetingInputs.length; j++) {
       meetingInputs[j].addEventListener('input', triggerAutoSave);
