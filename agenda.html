@@ -1289,10 +1289,12 @@ function callCloudApi(action, data) {
       if (xhr.status >= 200 && xhr.status < 300) {
         try {
           var result = JSON.parse(xhr.responseText);
-          if (result.code === 0) {
-            resolve(result);
+          // Cloud function returns {ok:true} or {exists:true, data:...}
+          // No error field = success
+          if (result.error) {
+            reject(new Error(result.error));
           } else {
-            reject(new Error(result.error || 'API error'));
+            resolve(result);
           }
         } catch (e) {
           reject(new Error('Invalid JSON response'));
