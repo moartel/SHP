@@ -1322,43 +1322,37 @@ function tryHttpApi() {
 function initCloudBase() {
   useHttpApi = false;
   updateSyncStatus('syncing', '连接中...');
-  return loadCloudBaseSDK().then(function(sdkOk) {
-    if (!sdkOk) {
-      // SDK 加载失败 → 尝试 HTTP API
-      console.log('[Init] Web SDK failed, trying HTTP API...');
-      return tryHttpApi().then(function(apiOk) {
-        if (apiOk) {
-          useHttpApi = true;
-          isCloudReady = true;
-          updateSyncStatus('online', '在线协作(API)');
-          return true;
-        }
+
+  // Primary: Try HTTP API (works without domain whitelist, no CORS restrictions)
+  return tryHttpApi().then(function(apiOk) {
+    if (apiOk) {
+      useHttpApi = true;
+      isCloudReady = true;
+      updateSyncStatus('online', '在线协作(API)');
+      console.log('[Init] HTTP API mode active');
+      return true;
+    }
+
+    // Fallback: Try Web SDK (requires domain whitelist, only works on CloudBase hosting)
+    console.log('[Init] HTTP API unavailable, trying Web SDK...');
+    return loadCloudBaseSDK().then(function(sdkOk) {
+      if (!sdkOk) {
         updateSyncStatus('offline', '离线模式(SDK)');
         return false;
-      });
-    }
-    cloudApp = cloudbase.init({ env: CLOUDBASE_ENV, region: 'ap-shanghai' });
-    return cloudApp.auth({ persistence: 'local' }).anonymousAuthProvider().signIn().then(function() {
-      cloudDb = cloudApp.database();
-      cloudCollection = cloudDb.collection('agendas');
-      isCloudReady = true;
-      updateSyncStatus('online', '在线协作');
-      return true;
-    });
-  }).catch(function(err) {
-    console.warn('CloudBase Web SDK init failed:', err.message || err);
-    // Web SDK 认证失败（可能是域名白名单限制）→ 尝试 HTTP API
-    console.log('[Init] Web SDK auth failed, trying HTTP API fallback...');
-    return tryHttpApi().then(function(apiOk) {
-      if (apiOk) {
-        useHttpApi = true;
-        isCloudReady = true;
-        updateSyncStatus('online', '在线协作(API)');
-        console.log('[Init] HTTP API fallback active');
-        return true;
       }
-      updateSyncStatus('offline', '离线模式(认证)');
-      return false;
+      cloudApp = cloudbase.init({ env: CLOUDBASE_ENV, region: 'ap-shanghai' });
+      return cloudApp.auth({ persistence: 'local' }).anonymousAuthProvider().signIn().then(function() {
+        cloudDb = cloudApp.database();
+        cloudCollection = cloudDb.collection('agendas');
+        isCloudReady = true;
+        updateSyncStatus('online', '在线协作');
+        console.log('[Init] Web SDK mode active');
+        return true;
+      }).catch(function(err) {
+        console.warn('[Init] Web SDK auth failed:', err.message || err);
+        updateSyncStatus('offline', '离线模式(认证)');
+        return false;
+      });
     });
   });
 }
